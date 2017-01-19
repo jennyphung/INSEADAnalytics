@@ -182,7 +182,7 @@ Try it!
 
 #### Questions
 
-1. Once you write and read the data as described above, what happens when you run this command in the console of the RStudio: `sum(myData != StockReturns[1:20,])`
+1. Once you write and read the data as described above, what happens when you run this command in the console of the RStudio: `sum(myData != StockReturns[1:20,])` 
 2. *(Extra exercise)* What do you think will happen if you now run this command, and why:  
 
 ```{r eval = FALSE, echo=TRUE}
