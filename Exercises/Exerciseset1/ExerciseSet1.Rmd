@@ -157,7 +157,7 @@ This is an important step and will get you to think about the overall process on
 
 **Your Answers here:**
 <br>Answer 1: 
-startDate = "2000-12-31"
+startDate = "2000-12-31" 
 <br>
 <br>
 <br>
