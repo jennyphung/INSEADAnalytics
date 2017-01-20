@@ -133,7 +133,7 @@ We can also transpose the matrix of returns to create a new "horizontal" matrix.
 
 **Your Answers here:**
 <br>Answer 1: 
-nrow(transposteData)
+nrow(transposedData)
 ncol(transposedData)
 <br>Answer 2:
 {r echo=FALSE, comment=NA, warning=FALSE, message=FALSE,results='asis',fig.align='center', fig=TRUE}
