@@ -145,18 +145,17 @@ The correlation matrix does not look pretty for now, but we will see example way
 1. Can you find which column asks about the name of the brand rated? 
 2. Can you find the average rating responded gave to question "`r gsub("_", " ", gsub("\\.", " ", "Q1_3_The.brand.of.boat.I.buy.says.a.lot.about.who.I.am"))`" (note the use of the R command `gsub` in the code to manipulate character strings).
 3. *(Extra points)* What is the percentage of male in this population? How many of them responded that they plan to purchase a boat in the future? 
+sum(ProjectData[,])
 4. *(Extra points)* Explore the R command `table` and use it to present in this report some of the data.
 5. Explore the R packages or github repositories you found interesting and prepare to discuss one of them in class, and if possible show some demo. 
 
 **Your Answers here:**
 <br>
+Answer 1: The answer is Column 53
 Answer 2: The answer is `r mean(ProjectData[,4])`
 Answer 3: It is `r sum(ProjectData[,48]==1)/nrow(ProjectData)`
+Answer 4: 
 
-```{r eval = TRUE, echo=TRUE, comment=NA, warning=FALSE, message=FALSE,results='markup'}
-mean(ProjectData[,4])
-sum(ProjectData[,48]==1)/nrow(ProjectData)
-```
 <br>
 <br>
 <br>
