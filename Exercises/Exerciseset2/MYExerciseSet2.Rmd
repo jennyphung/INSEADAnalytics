@@ -90,7 +90,9 @@ load("data/FuturesTrendFollowingData.Rdata")
 We have data from `r head(rownames(futures_data),1)` to `r tail(rownames(futures_data),1)` of daily returns for the following `r ncol(futures_data)` futures: 
 
 ```{r echo=TRUE, results='markup'}
+
 print(colnames(futures_data))
+
 ```
 
 # Basic data analysis
@@ -173,6 +175,60 @@ iprint.df(show_data, scale=TRUE)
 9. Precious metals
 10. Asian stock exchanges
 Answer 4: 
+
+
+```{r echo=TRUE, results='markup'}
+crisis_data = futures_data[as.Date(rownames(futures_data))>"2007-10-01"&as.Date(rownames(futures_data))<"2009-03-01",]
+print(colnames(crisis_data))
+```
+
+Here is the scree plot:
+
+```{r echo=TRUE}
+Variance_Explained_Table_results2<-PCA(crisis_data, graph=FALSE)
+Variance_Explained_Table2<-Variance_Explained_Table_results2$eig
+colnames(Variance_Explained_Table2)<-c("Eigenvalue", 
+  "Pct of explained variance", "Cumulative pct of explained variance")
+```
+
+```{r}
+show_data = round(Variance_Explained_Table2, 2)
+iprint.df(show_data)
+```
+
+```{r echo=TRUE}
+eigenvalues2  <- Variance_Explained_Table2[, "Eigenvalue"]
+```
+
+```{r}
+df           <- cbind(as.data.frame(eigenvalues2), c(1:length(eigenvalues2)), rep(1, length(eigenvalues2)))
+colnames(df) <- c("eigenvalues", "components", "abline")
+iplot.df(melt(df, id="components"))
+```
+ 
+Let's now see how the 20 first principal components look like.
+
+```{r echo=TRUE, tidy=TRUE}
+corused2 = cor(crisis_data[,apply(crisis_data!=0,2,sum) > 10, drop=F])
+Rotated_Results2<-principal(corused2, nfactors=20, rotate="varimax",score=TRUE)
+Rotated_Factors2<-round(Rotated_Results2$loadings,2)
+Rotated_Factors2<-as.data.frame(unclass(Rotated_Factors2))
+colnames(Rotated_Factors2)<-paste("comp",1:ncol(Rotated_Factors2),sep=" ")
+
+sorted_rows <- sort(Rotated_Factors2[,1], decreasing = TRUE, index.return = TRUE)$ix
+Rotated_Factors2 <- Rotated_Factors2[sorted_rows,]
+Rotated_Factors2[abs(Rotated_Factors2) < 0.3]<-NA
+```
+ 
+```{r}
+show_data <- Rotated_Factors2 
+iprint.df(show_data, scale=TRUE)
+```
+
+Answer 5:
+
+Future returns during bear markets are more highly correlated than during bull markets. Thus, analysis for bull markets will require fewer components. 
+
 *
 *
 *
@@ -241,11 +297,11 @@ How does this compare with **existing CTA products** such as [this one from Soci
 
 **Answers**
 
+*Answer 1: The code takes average future prices for different durations, in days, and scales them to $1 being invested every day. The plot is return on year/month.
+*Answer 2: MAfreq<-seq(8,240,by=20)
 *
 *
-*
-*
-*
+* 
 *
 *
 *
